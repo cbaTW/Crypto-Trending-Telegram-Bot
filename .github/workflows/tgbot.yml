@@ -30,6 +30,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test with pytest
+    - name: Run Python and Overwrite
       run: |
         python main.py
+        git config user.name Github-Actions
+        git config user.email cbaTW@hotmail.com
+        git add .
+        git commit -m "cron generated"
+        git push
