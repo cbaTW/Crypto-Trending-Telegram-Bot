@@ -7,5 +7,5 @@ now = datetime.now()
 
 current_time = now.strftime("%H:%M:%S")
 
-f = open('test.txt', "a")
+f = open('testing.txt', "a")
 f.write(current_time+"\r")
