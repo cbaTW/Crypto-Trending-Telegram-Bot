@@ -1,3 +1,11 @@
 import requests as rq
 
-rq.get("https://b248-114-36-53-192.ngrok-free.app/Avatar/1.jpg")
+
+from datetime import datetime
+
+now = datetime.now()
+
+current_time = now.strftime("%H:%M:%S")
+
+f = open('test.txt', "a")
+f.write(current_time+"\r")
