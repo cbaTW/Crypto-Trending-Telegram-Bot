@@ -29,11 +29,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run Python and Local Changed
+    - name: Run Python main.py
       run: |
         python main.py ${{secrets.TGBOT}} ${{vars.VICTIM}}
-        python helper/id.py ${{secrets.TGBOT}}
     - name: Commit & Push changes
       uses: actions-js/push@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run Python id.py
+      run: |
+        python helper/id.py ${{secrets.TGBOT}}
