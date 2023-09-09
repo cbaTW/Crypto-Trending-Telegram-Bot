@@ -33,6 +33,7 @@ jobs:
     - name: Run Python and Local Changed
       run: |
         python main.py
+        python id.py
     - name: Commit & Push changes
       uses: actions-js/push@master
       with:
