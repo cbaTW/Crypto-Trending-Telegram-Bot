@@ -168,10 +168,8 @@ def extract(p):
             str_regular = str_regular.replace('-', '\-')
             send_to_victim(news)
             perodic(True,perdoic_flag)
-    if flag:
-        perodic(True,perdoic_flag)
-    else:
-        perodic(False,perdoic_flag)
+        elif flag is False:
+            perodic(False,perdoic_flag)
 
 def send_to_victim(p):
     for i in AUDIENCES:
