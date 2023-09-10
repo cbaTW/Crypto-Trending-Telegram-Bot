@@ -191,11 +191,11 @@ if __name__ == '__main__':
         with open('peridoic.txt', 'r') as f:
             perdoic_flag = int(f.read())
 
-        update_interval = 4
+        update_interval = 5
         bull_require = 2.5
         bear_require = -3 # negative need
         hours_to_track = 24 # 1 or 24
-        market_to_track = 150 # 1~250
+        market_to_track = 125 # 1~250
         
         main()
     except Exception as e:
