@@ -11,33 +11,30 @@ def prepare():
     return df_old_bull, df_old_bear
 
 
-def perodic(bool, p):
+def perodic(bool):
     # TRUE for reset
     if bool:
-        print('reset and sendmessage')
+        print('Perodic times reset from {} to 0 and sendUpdating Message'.format(perdoic_flag))
         with open('peridoic.txt', 'w') as f:
             f.write('0')
     # FALSE for keep
     else:
-        print('keep and count w/o sendmessage')
+        print('Perodic times from {} plus 1 to {}.'.format(perdoic_flag, perdoic_flag+1))
         with open('peridoic.txt', 'w') as f:
-            f.write(str(p+1))
+            f.write(str(perdoic_flag+1))
 
 
 def send_to_victim(p, flag):
+    print('Send Message? {}'.format(flag))
     if flag and len(p)>0:
-        print('something')
-        perodic(flag,perdoic_flag)
+        perodic(True)
         p = p + '*- - - - - - - - - - - - - - - - - - - - -*\n'
-
         p = p.replace('!', '\!')
         p = p.replace('.', '\.')
         p = p.replace('-', '\-')
-        print(p)
+        # print(p)
         for i in AUDIENCES:
             bot.sendMessage(text=p, chat_id=i, parse_mode="MARKDOWNV2")
-    elif flag is False: 
-        perodic(flag,perdoic_flag)
 
 
 def extract(p):
@@ -162,9 +159,14 @@ def extract(p):
                 for i in bear_leaver:
                     news += '{}   '.format(i.upper())
                 news += str_news_back
+        if len(news) > 0:
+            send_to_victim(news+leaderboard, flag)
+        elif perdoic_flag >= update_interval:
+            send_to_victim(leaderboard, flag)
+        else:
+            perodic(False)
             
         # Send Function
-        send_to_victim(news+leaderboard, flag)
     else:
         send_to_victim('', flag)
 
@@ -189,7 +191,7 @@ if __name__ == '__main__':
         with open('peridoic.txt', 'r') as f:
             perdoic_flag = int(f.read())
 
-        update_interval = 5
+        update_interval = 4
         bull_require = 2.5
         bear_require = -3 # negative need
         hours_to_track = 24 # 1 or 24
