@@ -16,4 +16,4 @@
 4. sys.argv passing parameters
 5. Treat JSON file as simple database
 6. Github Actions format
-test2
+7. tricky JSON hide in HTML using BeautifulSoup4 to extract it
