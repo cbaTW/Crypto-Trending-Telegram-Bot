@@ -37,7 +37,7 @@ jobs:
 
     - name: Run Python crawler.py
       run: |
-        python main.py ${{secrets.TGBOT}} ${{vars.VICTIM}}
+        python helper/crawler.py ${{secrets.TGBOT}} ${{vars.VICTIM}}
   
     - name: Commit & Push changes
       uses: actions-js/push@master
