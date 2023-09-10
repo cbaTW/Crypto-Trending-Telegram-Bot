@@ -45,7 +45,7 @@ def extract(p):
     filt = (df['price_change_percentage_1h_in_currency'] <= bear_require)
     df_bear = df.loc[filt, ['symbol', 'price_change_percentage_1h_in_currency', 'price_change_percentage_24h_in_currency']].sort_values(by='price_change_percentage_1h_in_currency', ascending=True)
     
-    sorting_key = 'price_change_percentage_1h_in_currency' + str(hours_to_track) + 'h_in_currency'
+    sorting_key = 'price_change_percentage_' + str(hours_to_track) + 'h_in_currency'
 
     df_bull = df_bull.sort_values(by=sorting_key, ascending=False).round(2)
     df_bear = df_bear.sort_values(by=sorting_key, ascending=True).round(2)
