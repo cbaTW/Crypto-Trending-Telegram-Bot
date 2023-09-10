@@ -16,12 +16,12 @@ def prepare():
 def perodic(bool, p):
     # TRUE for reset
     if bool:
-        print('reset')
+        print('reset and sendmessage')
         with open('peridoic.txt', 'w') as f:
             f.write('0')
     # FALSE for keep
     else:
-        print('keep')
+        print('keep and count w/o sendmessage')
         with open('peridoic.txt', 'w') as f:
             f.write(str(p+1))
 
@@ -29,8 +29,7 @@ def perodic(bool, p):
 
 def extract(p):
     flag = True
-    print("success")
-    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h&locale=en'
+    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=' + str(market_to_track) + '&page=1&sparkline=false&price_change_percentage=1h%2C24h&locale=en'
 
     perdoic_flag = p[0]
     df_old_bull = p[1]
@@ -45,9 +44,11 @@ def extract(p):
     df_bull = df.loc[filt, ['symbol', 'price_change_percentage_1h_in_currency', 'price_change_percentage_24h_in_currency']].sort_values(by='price_change_percentage_1h_in_currency', ascending=False)
     filt = (df['price_change_percentage_1h_in_currency'] <= bear_require)
     df_bear = df.loc[filt, ['symbol', 'price_change_percentage_1h_in_currency', 'price_change_percentage_24h_in_currency']].sort_values(by='price_change_percentage_1h_in_currency', ascending=True)
+    
+    sorting_key = 'price_change_percentage_1h_in_currency' + str(hours_to_track) + 'h_in_currency'
 
-    df_bull = df_bull.sort_values(by='price_change_percentage_1h_in_currency', ascending=False).round(2)
-    df_bear = df_bear.sort_values(by='price_change_percentage_1h_in_currency', ascending=True).round(2)
+    df_bull = df_bull.sort_values(by=sorting_key, ascending=False).round(2)
+    df_bear = df_bear.sort_values(by=sorting_key, ascending=True).round(2)
 
     # 3 Process
     # 3-1. Bull
@@ -193,8 +194,10 @@ if __name__ == '__main__':
         AUDIENCES = AUDIENCES.split(',')
 
         update_interval = 5
-        bull_require = 1.8
-        bear_require = -1.5
+        bull_require = 2
+        bear_require = -3 # negative need
+        hours_to_track = 24 # 1 or 24
+        market_to_track = 150 # 1~250
         
         main()
     except Exception as e:
