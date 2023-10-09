@@ -1,1 +1,1 @@
-幣安新增ARB/FDUSD、FDUSD/TRY、FRONT/TRY、LINK/TUSD、SUI/FDUSD交易對
+幣安全倉、逐倉杠桿新增WBETH資產以及更多交易對
